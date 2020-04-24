@@ -1,0 +1,10 @@
+Understand how to create models for each class of objects
+See how to structure data for a controller action to receive in order to handle multiple objects
+See how to structure the HTML in .erb files that handle nesting
+Understand how to create a view file that displays the objects back to the user
+Understand how to create two controller actions that serve up the form and process the data from the form
+
+with nested forms we can created multiple objects for example the artist/song/genre relationship
+
+The Models
+To create these two different classes of objects, we need to create two models, Student and Course.

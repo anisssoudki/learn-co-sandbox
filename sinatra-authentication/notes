@@ -1,0 +1,66 @@
+1. run bundle init in the command line to generate a Gemfile/or we can just create one
+2. make a new file config.ru touch config.ru
+3. mkdir config cd config touch environment.rb 
+4. go in the Gem file add all gems note on here some gems version might not be compatible
+
+these are good together 
+!!!!!!!!!!!!!
+5.gem 'sinatra'
+gem 'activerecord'
+gem 'sinatra-activerecord', :require => 'sinatra/activerecord'
+gem 'rake'
+gem 'require_all'
+gem 'sqlite3'
+gem 'shotgun'
+gem 'pry'
+gem 'bcrypt'
+gem 'tux'
+gem 'puma'
+
+group :test do
+  gem 'rspec'
+  gem 'capybara'
+  gem 'rack-test'
+end
+!!!!!!!!!!!!!!
+6.in the environemt file we need to set up the connection to the database
+7. mkdir app/db and cd app mkdir models/views/controllers
+8.touch Rakefile 
+9. this code belwo in Rakefile
+
+require_relative './config/environment'
+
+require 'sinatra/activerecord/rake'
+
+task :console do 
+Pry.start
+end
+
+10.cd controllers touch application_controller 
+than make a class that inherits from sinatra and configure it 
+
+class ApplicationController < Sinatra::Base 
+
+configure do 
+set :public_folder, 'public'
+set :views, 'app/views' 
+end
+end
+this just sets the path for the views file and public folder where sinatra in the back knows that to find public_folder it has to look for a folder named public and to find 
+a views folder look in app/views
+
+test if the app can start up put up a get '/' do path with a string see if it renders
+
+note on cookies when we enable sessions and set a session_secret we will autogenerate a cookie now this cookie can be set manually we never wanna do that because someone can hack our cookie and changed data 
+
+now we can make a sessions controller that inherits from our application_controller
+class SessionsController < ApplicationController
+  
+  get '/login' do 
+    erb :"sessions/login.html"
+  end
+  
+end
+than we have to render in the views dir 
+so lets talk about helpers helpers are methods that we can build in our main controller
+ie ApplicationController in order to help us figure out if a user is filling in the requirment in order to sign up and log in and they are better than repeating the same code over and over we can just call that method all over our other controllers since they inherit from the main controller which is ApplicationController
